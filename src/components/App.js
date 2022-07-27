@@ -1,4 +1,6 @@
 import "../styles/App.scss";
+import logo from "../images/commit_land_logo.png";
+import adalab from "../images/logo-adalab.png";
 
 function App() {
   return (
@@ -6,7 +8,7 @@ function App() {
       <header className="header">
         <figure className="header__figure">
           <img
-            src="./assets/images/commit_land_logo.png"
+            src= {logo}
             alt="logo-awesome-profile-cards"
             className="header__figure--logo"
           />
@@ -15,9 +17,7 @@ function App() {
 
       <main className="main">
         <section
-          className="preview"
-          style="background-image:url(./assets/images/roller.png)"
-        >
+          className="preview">
           <div className="wrapper">
             <button className="preview__button js-reset-button">
               <i className="fa-regular fa-trash-can"></i>Reset
@@ -32,9 +32,7 @@ function App() {
               <div className="card__photo">
                 <div className="profile">
                   <div
-                    className="profile__image js__profile-image"
-                    style="background-image:url(./assets/images/astronaut2.png)"
-                  ></div>
+                    className="profile__image js__profile-image"></div>
                 </div>
                 <nav className="card__footer">
                   <ul className="socialmedia">
@@ -102,7 +100,7 @@ function App() {
                     value="1"
                     id="check1"
                     name="select"
-                    checked=""
+                    defaultChecked
                   />
                   <div className="pantone1__first"></div>
                   <div className="pantone1__second"></div>
@@ -178,9 +176,7 @@ function App() {
                 </div>
 
                 <div
-                  className="profile__preview js__profile-preview"
-                  style="background-image:url(./assets/images/astronaut2.png)"
-                ></div>
+                  className="profile__preview js__profile-preview"></div>
               </div>
 
               <label className="label" htmlFor="email">
@@ -266,7 +262,7 @@ function App() {
         <figure className="footer__logo">
           <img
             className="footer__image"
-            src="./assets/images/logo-adalab.png"
+            src={adalab}
             alt="Logo de Adalab"
             title="Adalab"
             width="100%"
