@@ -1,8 +1,43 @@
 import "../styles/App.scss";
 import logo from "../images/commit_land_logo.png";
 import adalab from "../images/logo-adalab.png";
+import {useState} from 'react';
 
 function App() {
+
+  const [dataCard, setDataCard] = useState({
+    palette: 1,
+    name: "",
+    job: "",
+    phone: "",
+    email: "",
+    linkedin: "",
+    github: "",
+    photo: "",
+  });
+
+  const handleInput = (ev) => {
+    const inputValue = ev.currentTarget.value;
+    const inputName = ev.currentTarget.name;
+    setDataCard({...dataCard, [inputName]: inputValue});
+  };
+
+  const handleReset = (ev) => {
+    ev.preventDefault();
+    setDataCard(
+      {palette: 1,
+      name: "",
+      job: "",
+      phone: "",
+      email: "",
+      linkedin: "",
+      github: "",
+      photo: "",}
+    );
+  };
+
+  {/*Ese 1 del dataCard.palette es un número porque si no el fetch hace katakroker, es como lo quiere el server*/}
+
   return (
     <div>
       <header className="header">
@@ -19,15 +54,15 @@ function App() {
         <section
           className="preview">
           <div className="wrapper">
-            <button className="preview__button js-reset-button">
+            <button className="preview__button js-reset-button" onClick={handleReset}>
               <i className="fa-regular fa-trash-can"></i>Reset
             </button>
 
-            <article className="card js_cardPreview">
+            <article className={`card js_cardPreview palette${dataCard.palette}`}>
               <div className="card__rectangle"></div>
               <div className="card__info">
-                <h3 className="card__name js_cardname">Nombre Apellido</h3>
-                <p className="card__job js_cardjob">Front-end developer</p>
+                <h3 className="card__name js_cardname">{dataCard.name || `Nombre y Apellidos`}</h3>
+                <p className="card__job js_cardjob">{dataCard.job || `Front-end developer`}</p>
               </div>
               <div className="card__photo">
                 <div className="profile">
@@ -39,9 +74,8 @@ function App() {
                     <li>
                       <a
                         className="js_cardtel"
-                        href="#"
+                        href={`tel:${dataCard.phone}`}
                         title="Teléfono"
-                        target="_blank"
                       >
                         <i className="socialmedia__icon fa-solid fa-mobile-screen-button"></i>
                       </a>
@@ -49,7 +83,7 @@ function App() {
                     <li>
                       <a
                         className="js_cardemail"
-                        href="#"
+                        href={`mailto:${dataCard.email}`}
                         title="Correo"
                         target="_blank"
                       >
@@ -59,7 +93,7 @@ function App() {
                     <li>
                       <a
                         className="js_cardlinkedin"
-                        href="#"
+                        href={dataCard.linkedin}
                         title="LinkedIn"
                         target="_blank"
                       >
@@ -69,7 +103,7 @@ function App() {
                     <li>
                       <a
                         className="js_cardgithub"
-                        href="#"
+                        href={dataCard.github}
                         title="GitHub"
                         target="_blank"
                       >
@@ -82,6 +116,8 @@ function App() {
             </article>
           </div>
         </section>
+
+        {/*Empieza el form */}
 
         <form className="form js_all_inputs" action="">
           <fieldset className="fieldset__1">
@@ -98,9 +134,10 @@ function App() {
                     className="js_radio pantone1__input"
                     type="radio"
                     value="1"
-                    id="check1"
-                    name="select"
-                    defaultChecked
+                    id="palette1"
+                    name="palette"
+                    onChange={handleInput}
+                    checked={dataCard.palette === "1" || (dataCard.palette !== "2" && dataCard.palette !== "3")}
                   />
                   <div className="pantone1__first"></div>
                   <div className="pantone1__second"></div>
@@ -111,8 +148,10 @@ function App() {
                     className="js_radio pantone1__input"
                     type="radio"
                     value="2"
-                    id="check2"
-                    name="select"
+                    id="palette2"
+                    name="palette"
+                    onChange={handleInput}
+                    checked={dataCard.palette === "2"}
                   />
                   <div className="pantone2__first"></div>
                   <div className="pantone2__second"></div>
@@ -123,8 +162,10 @@ function App() {
                     className="js_radio pantone1__input"
                     type="radio"
                     value="3"
-                    id="check3"
-                    name="select"
+                    id="palette3"
+                    name="palette"
+                    onChange={handleInput}
+                    checked={dataCard.palette === "3"}
                   />
                   <div className="pantone3__first"></div>
                   <div className="pantone3__second"></div>
@@ -140,16 +181,18 @@ function App() {
               <h2 className="fieldset__2--title">Rellena</h2>
               <i className="js_arrow_fill fa-solid fa-rocket fieldset__2--iconArrow"></i>
             </legend>
-            <div className="js_content_fill fieldset__2--div collapsed">
+            <div className="js_content_fill fieldset__2--div">
               <label className="label" htmlFor="firstAndSecondName">
                 Nombre completo
               </label>
               <input
                 placeholder="Ej: Sally Jill"
                 type="text"
-                name="firstAndSecondName"
-                id="firstAndSecondName"
+                name="name"
+                id="name"
                 className="fieldset__2--input js_name"
+                value={dataCard.name}
+                onChange={handleInput}
               />
               <label className="label" htmlFor="work">
                 Puesto
@@ -157,9 +200,11 @@ function App() {
               <input
                 placeholder="Ej: Front-end unicorns"
                 type="text"
-                name="work"
-                id="work"
+                name="job"
+                id="job"
                 className="fieldset__2--input js_job"
+                value={dataCard.job}
+                onChange={handleInput}
               />
 
               <div className="wrapperImageFieldset2">
@@ -188,6 +233,8 @@ function App() {
                 name="email"
                 id="email"
                 className="fieldset__2--input js_email"
+                value={dataCard.email}
+                onChange={handleInput}
               />
               <label className="label" htmlFor="tel">
                 Teléfono
@@ -195,9 +242,11 @@ function App() {
               <input
                 placeholder="Ej. 555-55-55-55"
                 type="tel"
-                name="tel"
-                id="tel"
+                name="phone"
+                id="phone"
                 className="fieldset__2--input js_tlf"
+                value={dataCard.phone}
+                onChange={handleInput}
               />
               <label className="label" htmlFor="linkedin">
                 LinkedIn
@@ -208,6 +257,8 @@ function App() {
                 name="linkedin"
                 id="linkedin"
                 className="fieldset__2--input js_linkedin"
+                value={dataCard.linkedin}
+                onChange={handleInput}
               />
               <label className="label" htmlFor="github">
                 Github
@@ -218,6 +269,8 @@ function App() {
                 name="github"
                 id="github"
                 className="fieldset__2--input js_github"
+                value={dataCard.github}
+                onChange={handleInput}
               />
             </div>
           </fieldset>
@@ -229,14 +282,14 @@ function App() {
               <i className="js_arrow_share fa-solid fa-rocket fieldset__2--iconArrow"></i>
             </legend>
 
-            <button className="js_content_share fieldset-3__button collapsed">
+            <button className="js_content_share fieldset-3__button">
               <i className="fa-solid fa-address-card"></i>crear tarjeta
             </button>
           </fieldset>
 
           {/* EMPIEZA AQUÍ EL "FIELDSET-4"  */}
 
-          <article className="fieldset-4__article js_twitter collapsed">
+          <article className="fieldset-4__article js_twitter">
             <h2 className="js_error_msg fieldset-4___article--title">
               La tarjeta ha sido creada:
             </h2>
