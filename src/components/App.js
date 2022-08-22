@@ -37,6 +37,9 @@ function App() {
   };
 
   // localStorage 
+  useEffect(() => {
+    localStorage.set('userData', dataCard);
+  }, [dataCard]);
 
 
   {/*Ese 1 del dataCard.palette es un número porque si no el fetch hace katakroker, es como lo quiere el server*/ }
