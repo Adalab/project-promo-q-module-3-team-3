@@ -1,11 +1,14 @@
 import "../styles/App.scss";
-import logo from "../images/commit_land_logo.png";
-import adalab from "../images/logo-adalab.png";
-import {useState} from 'react';
+import { useState, useEffect } from 'react';
+import getData from "../services/fetch";
+import Header from '../components/Header';
+import CardPreview from "./CardPreview";
+import Footer from './Footer';
+import localStorage from '../services/localStorage';
 
 function App() {
 
-  const [dataCard, setDataCard] = useState({
+  const [dataCard, setDataCard] = useState(localStorage.get('userData', {
     palette: 1,
     name: "",
     job: "",
@@ -14,108 +17,35 @@ function App() {
     linkedin: "",
     github: "",
     photo: "",
-  });
+  }));
+
+  const [resultCard, setResultCard] = useState({});
 
   const handleInput = (ev) => {
     const inputValue = ev.currentTarget.value;
     const inputName = ev.currentTarget.name;
-    setDataCard({...dataCard, [inputName]: inputValue});
+    setDataCard({ ...dataCard, [inputName]: inputValue });
+    localStorage.set('userData', dataCard);
   };
 
-  const handleReset = (ev) => {
+  const handleCreateCard = (ev) => {
     ev.preventDefault();
-    setDataCard(
-      {palette: 1,
-      name: "",
-      job: "",
-      phone: "",
-      email: "",
-      linkedin: "",
-      github: "",
-      photo: "",}
-    );
+    getData(dataCard).then(info => {
+      setResultCard(info);
+      console.log(info);
+    });
   };
 
-  {/*Ese 1 del dataCard.palette es un número porque si no el fetch hace katakroker, es como lo quiere el server*/}
+  // localStorage 
+
+
+  {/*Ese 1 del dataCard.palette es un número porque si no el fetch hace katakroker, es como lo quiere el server*/ }
 
   return (
     <div>
-      <header className="header">
-        <figure className="header__figure">
-          <img
-            src= {logo}
-            alt="logo-awesome-profile-cards"
-            className="header__figure--logo"
-          />
-        </figure>
-      </header>
-
+      <Header />
       <main className="main">
-        <section
-          className="preview">
-          <div className="wrapper">
-            <button className="preview__button js-reset-button" onClick={handleReset}>
-              <i className="fa-regular fa-trash-can"></i>Reset
-            </button>
-
-            <article className={`card js_cardPreview palette${dataCard.palette}`}>
-              <div className="card__rectangle"></div>
-              <div className="card__info">
-                <h3 className="card__name js_cardname">{dataCard.name || `Nombre y Apellidos`}</h3>
-                <p className="card__job js_cardjob">{dataCard.job || `Front-end developer`}</p>
-              </div>
-              <div className="card__photo">
-                <div className="profile">
-                  <div
-                    className="profile__image js__profile-image"></div>
-                </div>
-                <nav className="card__footer">
-                  <ul className="socialmedia">
-                    <li>
-                      <a
-                        className="js_cardtel"
-                        href={`tel:${dataCard.phone}`}
-                        title="Teléfono"
-                      >
-                        <i className="socialmedia__icon fa-solid fa-mobile-screen-button"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="js_cardemail"
-                        href={`mailto:${dataCard.email}`}
-                        title="Correo"
-                        target="_blank"
-                      >
-                        <i className="socialmedia__icon fa-regular fa-envelope"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="js_cardlinkedin"
-                        href={dataCard.linkedin}
-                        title="LinkedIn"
-                        target="_blank"
-                      >
-                        <i className="socialmedia__icon fa-brands fa-linkedin-in"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="js_cardgithub"
-                        href={dataCard.github}
-                        title="GitHub"
-                        target="_blank"
-                      >
-                        <i className="socialmedia__icon fa-brands fa-github-alt"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </article>
-          </div>
-        </section>
+        <CardPreview setDataCard={setDataCard} dataCard={dataCard} />
 
         {/*Empieza el form */}
 
@@ -265,7 +195,7 @@ function App() {
               </label>
               <input
                 placeholder="Ej: https://github.com/sally-hill"
-                type="text"
+                type="url"
                 name="github"
                 id="github"
                 className="fieldset__2--input js_github"
@@ -282,7 +212,7 @@ function App() {
               <i className="js_arrow_share fa-solid fa-rocket fieldset__2--iconArrow"></i>
             </legend>
 
-            <button className="js_content_share fieldset-3__button">
+            <button className="js_content_share fieldset-3__button" onClick={handleCreateCard}>
               <i className="fa-solid fa-address-card"></i>crear tarjeta
             </button>
           </fieldset>
@@ -296,7 +226,7 @@ function App() {
 
             <div className="js_div_share">
               <p className="js_paragraph fieldset-4__article--paragraph">
-                Aquí irá el enlace de tu tarjeta
+                {resultCard.success === true ? resultCard.cardURL : resultCard.error}
               </p>
             </div>
 
@@ -310,18 +240,7 @@ function App() {
         </form>
       </main>
 
-      <footer className="footer">
-        <p className="footer__copyright">Commit Land Cards ©2022</p>
-        <figure className="footer__logo">
-          <img
-            className="footer__image"
-            src={adalab}
-            alt="Logo de Adalab"
-            title="Adalab"
-            width="100%"
-          />
-        </figure>
-      </footer>
+      <Footer />
     </div>
   );
 }
