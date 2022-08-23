@@ -1,26 +1,36 @@
 import "../styles/App.scss";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import getData from "../services/fetch";
-import Header from '../components/Header';
+//Componentes
+import GetAvatar from "./GetAvatar";
+import Profile from "./Profile";
+import Header from "./Header";
 import CardPreview from "./CardPreview";
-import Footer from './Footer';
-import localStorage from '../services/localStorage';
+import Footer from "./Footer";
+//LS
+import localStorage from "../services/localStorage";
 
 function App() {
-
-  const [dataCard, setDataCard] = useState(localStorage.get('userData', {
-    palette: 1,
-    name: "",
-    job: "",
-    phone: "",
-    email: "",
-    linkedin: "",
-    github: "",
-    photo: "",
-  }));
-
+  const [dataCard, setDataCard] = useState(
+    localStorage.get("userData", {
+      palette: 1,
+      name: "",
+      job: "",
+      phone: "",
+      email: "",
+      linkedin: "",
+      github: "",
+      photo: "",
+    })
+  );
+  //Avatar
   const [resultCard, setResultCard] = useState({});
-
+  const [avatar, setAvatar] = useState("");
+  const updateAvatar = (avatar) => {
+    console.log(avatar);
+    setAvatar(avatar);
+  };
+  //Manejadoras
   const handleInput = (ev) => {
     const inputValue = ev.currentTarget.value;
     const inputName = ev.currentTarget.name;
@@ -29,19 +39,20 @@ function App() {
 
   const handleCreateCard = (ev) => {
     ev.preventDefault();
-    getData(dataCard).then(info => {
+    getData(dataCard).then((info) => {
       setResultCard(info);
       console.log(info);
     });
   };
 
-  // localStorage 
+  // localStorage
   useEffect(() => {
-    localStorage.set('userData', dataCard);
+    localStorage.set("userData", dataCard);
   }, [dataCard]);
 
-
-  {/*Ese 1 del dataCard.palette es un número porque si no el fetch hace katakroker, es como lo quiere el server*/ }
+  {
+    /*Ese 1 del dataCard.palette es un número porque si no el fetch hace katakroker, es como lo quiere el server*/
+  }
 
   return (
     <div>
@@ -69,7 +80,10 @@ function App() {
                     id="palette1"
                     name="palette"
                     onChange={handleInput}
-                    checked={dataCard.palette === "1" || (dataCard.palette !== "2" && dataCard.palette !== "3")}
+                    checked={
+                      dataCard.palette === "1" ||
+                      (dataCard.palette !== "2" && dataCard.palette !== "3")
+                    }
                   />
                   <div className="pantone1__first"></div>
                   <div className="pantone1__second"></div>
@@ -106,7 +120,7 @@ function App() {
               </div>
             </section>
           </fieldset>
-
+          {/*Empieza Fill*/}
           <fieldset className="fieldset__2">
             <legend className="js_title_fill fieldset__2--legend">
               <i className="fa-solid fa-keyboard fieldset__2--iconKeyboard"></i>
@@ -138,8 +152,13 @@ function App() {
                 value={dataCard.job}
                 onChange={handleInput}
               />
-
-              <div className="wrapperImageFieldset2">
+              {/*Imagen*/}
+              <GetAvatar
+                avatar={avatar}
+                updateAvatar={updateAvatar}
+                dataCard={dataCard}
+              />
+              {/*<div className="wrapperImageFieldset2">
                 <div className="action">
                   <label className="action__upload-btn" htmlFor="img-selector">
                     Añadir imagen
@@ -152,10 +171,9 @@ function App() {
                   />
                 </div>
 
-                <div
-                  className="profile__preview js__profile-preview"></div>
-              </div>
-
+                <div className="profile__preview js__profile-preview"></div>
+                  </div>*/}
+              {/*Sigue Fill*/}
               <label className="label" htmlFor="email">
                 Email
               </label>
@@ -206,7 +224,7 @@ function App() {
               />
             </div>
           </fieldset>
-
+          {/*Empieza Share*/}
           <fieldset className="fieldset-3">
             <legend className="js_title_share fieldset-3__legend">
               <i className="fa-solid fa-share-nodes"></i>
@@ -214,12 +232,15 @@ function App() {
               <i className="js_arrow_share fa-solid fa-rocket fieldset__2--iconArrow"></i>
             </legend>
 
-            <button className="js_content_share fieldset-3__button" onClick={handleCreateCard}>
+            <button
+              className="js_content_share fieldset-3__button"
+              onClick={handleCreateCard}
+            >
               <i className="fa-solid fa-address-card"></i>crear tarjeta
             </button>
           </fieldset>
 
-          {/* EMPIEZA AQUÍ EL "FIELDSET-4"  */}
+          {/* EMPIEZA AQUÍ EL "FIELDSET-4" (Twitter) */}
 
           <article className="fieldset-4__article js_twitter">
             <h2 className="js_error_msg fieldset-4___article--title">
@@ -228,7 +249,9 @@ function App() {
 
             <div className="js_div_share">
               <p className="js_paragraph fieldset-4__article--paragraph">
-                {resultCard.success === true ? resultCard.cardURL : resultCard.error}
+                {resultCard.success === true
+                  ? resultCard.cardURL
+                  : resultCard.error}
               </p>
             </div>
 
