@@ -25,7 +25,6 @@ function App() {
     const inputValue = ev.currentTarget.value;
     const inputName = ev.currentTarget.name;
     setDataCard({ ...dataCard, [inputName]: inputValue });
-    localStorage.set('userData', dataCard);
   };
 
   const handleCreateCard = (ev) => {
