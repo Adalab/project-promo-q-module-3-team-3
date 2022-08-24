@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import Header from "./Header";
 import CardPreview from "./CardPreview";
 import Footer from "./Footer";
+import Card from "./Card";
 //LS
 import localStorage from "../services/localStorage";
 
@@ -28,12 +29,12 @@ function App() {
   const [avatar, setAvatar] = useState("");
   const updateAvatar = (avatar) => {
     console.log(avatar);
-    setAvatar(avatar);
+    setDataCard({ ...dataCard, photo: avatar });
   };
   //Manejadoras
-  const handleInput = (ev) => {
-    const inputValue = ev.currentTarget.value;
-    const inputName = ev.currentTarget.name;
+  const handleInput = (data) => {
+    const inputValue = data.value;
+    const inputName = data.name;
     setDataCard({ ...dataCard, [inputName]: inputValue });
   };
 
@@ -63,64 +64,8 @@ function App() {
         {/*Empieza el form */}
 
         <form className="form js_all_inputs" action="">
-          <fieldset className="fieldset__1">
-            <legend className="js_title_design fieldset__1--legend">
-              <i className="fa-solid fa-vector-square fieldset__1--iconSquare"></i>
-              <h2 className="fieldset__1--title">Diseña</h2>
-              <i className="js_arrow_design fa-solid fa-rocket fieldset__1--iconArrow arrow-down"></i>
-            </legend>
-            <section className="js_content_design range">
-              <h3 className="range__title">Colores</h3>
-              <div className="range__pantone">
-                <div className="pantone1">
-                  <input
-                    className="js_radio pantone1__input"
-                    type="radio"
-                    value="1"
-                    id="palette1"
-                    name="palette"
-                    onChange={handleInput}
-                    checked={
-                      dataCard.palette === "1" ||
-                      (dataCard.palette !== "2" && dataCard.palette !== "3")
-                    }
-                  />
-                  <div className="pantone1__first"></div>
-                  <div className="pantone1__second"></div>
-                  <div className="pantone1__third"></div>
-                </div>
-                <div className="pantone2">
-                  <input
-                    className="js_radio pantone1__input"
-                    type="radio"
-                    value="2"
-                    id="palette2"
-                    name="palette"
-                    onChange={handleInput}
-                    checked={dataCard.palette === "2"}
-                  />
-                  <div className="pantone2__first"></div>
-                  <div className="pantone2__second"></div>
-                  <div className="pantone2__third"></div>
-                </div>
-                <div className="pantone3">
-                  <input
-                    className="js_radio pantone1__input"
-                    type="radio"
-                    value="3"
-                    id="palette3"
-                    name="palette"
-                    onChange={handleInput}
-                    checked={dataCard.palette === "3"}
-                  />
-                  <div className="pantone3__first"></div>
-                  <div className="pantone3__second"></div>
-                  <div className="pantone3__third"></div>
-                </div>
-              </div>
-            </section>
-          </fieldset>
           {/*Empieza Fill*/}
+          <Card datacard={dataCard} handleInput={handleInput} />
           <fieldset className="fieldset__2">
             <legend className="js_title_fill fieldset__2--legend">
               <i className="fa-solid fa-keyboard fieldset__2--iconKeyboard"></i>
@@ -154,7 +99,7 @@ function App() {
               />
               {/*Imagen*/}
               <GetAvatar
-                avatar={avatar}
+                avatar={dataCard.photo}
                 updateAvatar={updateAvatar}
                 dataCard={dataCard}
               />

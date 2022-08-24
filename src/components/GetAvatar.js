@@ -68,7 +68,6 @@ function GetAvatar(props) {
           ref={myFileField}
           className="get-avatar__upload-field"
           name="photo"
-          value={props.avatar} //katakroker al añadir la foto, avatar tiene el formato que hay que poner en "photo"
           onChange={uploadImage}
         />
       </label>
