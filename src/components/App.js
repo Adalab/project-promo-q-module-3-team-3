@@ -50,10 +50,11 @@ function App() {
       <Routes>
         <Route path="/" element={
           <><Header />
+
             <Card updateAvatar={updateAvatar} dataCard={dataCard} handleCreateCard={setResultCard} handleInput={handleInput}
-              resultCard={resultCard}
+              resultCard={resultCard} setDataCard={setDataCard}
             />
-            <CardPreview setDataCard={setDataCard} dataCard={dataCard} />
+
             <Footer />
           </>
         } ></Route>

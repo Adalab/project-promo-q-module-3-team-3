@@ -62,7 +62,7 @@ function GetAvatar(props) {
   return (
     <div className="get-avatar">
       <label className="get-avatar__label">
-        Get avatar!
+        Añadir imagen
         <input
           type="file"
           ref={myFileField}

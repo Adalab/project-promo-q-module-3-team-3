@@ -9,13 +9,14 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    background: deeppink;
+    background: #e17334;
     border-radius: 15px;
     border: 0;
-    font-family: sans-serif;
-    font-size: 20px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
     padding: 10px 20px;
     color: #fff;
+    text-transform: uppercase;
   }
   
   .get-avatar__upload-field {

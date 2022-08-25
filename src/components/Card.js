@@ -26,6 +26,8 @@ function Card(props) {
 
   return (
     <main className="main">
+
+      <CardPreview setDataCard={props.setDataCard} dataCard={props.dataCard} />
       <form className="form js_all_inputs" action="">
         <Design handleInput={handleInput} dataCard={props.dataCard} />
         <Fill dataCard={props.dataCard} updateAvatar={props.updateAvatar} handleInput={handleInput} />
@@ -33,6 +35,8 @@ function Card(props) {
       </form>
 
     </main>
+
+
 
   );
 }
