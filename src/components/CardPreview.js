@@ -1,4 +1,5 @@
 import "../styles/layout/Preview.scss";
+import defaultAvatar from "../images/astronaut2.png";
 
 function CardPreview(props) {
   const handleReset = (ev) => {
@@ -14,6 +15,9 @@ function CardPreview(props) {
       photo: "",
     });
   };
+
+  const avatar = props.dataCard.photo === "" ? defaultAvatar : props.dataCard.photo;
+
   return (
     <section className="preview">
       <div className="wrapper">
@@ -40,9 +44,7 @@ function CardPreview(props) {
             <div className="profile">
               <div
                 className="profile__image js__profile-image"
-                style={{
-                  backgroundImage: `url(${props.dataCard.photo})`,
-                }}
+                style={{ backgroundImage: `url(${avatar})` }}
               ></div>
             </div>
             <nav className="card__footer">

@@ -1,9 +1,13 @@
-import "../styles/layout/_fieldset_1.scss";
+import "../styles/layout/Design.scss";
+
 
 function Design(props) {
+  console.log(props)
+
+
   const handleInput = (ev) => {
-    const inputValue = ev.currentTarget.value;
     const inputName = ev.currentTarget.name;
+    const inputValue = ev.currentTarget.value;
     props.handleInput({
       value: inputValue,
       name: inputName,
@@ -11,7 +15,7 @@ function Design(props) {
   };
 
   return (
-    <fieldset className="fieldset__1">
+    <fieldset className="fieldset__1" >
       <legend className="js_title_design fieldset__1--legend">
         <i className="fa-solid fa-vector-square fieldset__1--iconSquare"></i>
         <h2 className="fieldset__1--title">Diseña</h2>
@@ -29,10 +33,7 @@ function Design(props) {
               name="palette"
               onChange={handleInput}
               checked={
-                props.dataCard.palette === "1" ||
-                (props.dataCard.palette !== "2" &&
-                  props.dataCard.palette !== "3")
-              }
+                props.dataCard.palette === "1"}
             />
             <div className="pantone1__first"></div>
             <div className="pantone1__second"></div>
@@ -58,7 +59,7 @@ function Design(props) {
               type="radio"
               value="3"
               id="palette3"
-              name="palette"
+              name="dataCard.palette"
               onChange={handleInput}
               checked={props.dataCard.palette === "3"}
             />
