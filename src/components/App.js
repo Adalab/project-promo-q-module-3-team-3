@@ -8,6 +8,7 @@ import Header from "./Header";
 import CardPreview from "./CardPreview";
 import Footer from "./Footer";
 import Card from "./Card";
+import Landing from "./Landing";
 
 //LS
 import localStorage from "../services/localStorage";
@@ -48,7 +49,8 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={
+        <Route path="/" element={<><Header /><Landing /><Footer /></>}></Route>
+        <Route path="/card" element={
           <><Header />
 
             <Card updateAvatar={updateAvatar} dataCard={dataCard} handleCreateCard={setResultCard} handleInput={handleInput}
