@@ -5,19 +5,19 @@ import Share from "./Share";
 import Twitter from "./Twitter";
 
 function Card(props) {
-  const handleCreateCard = (ev) => {
+  /*const handleCreateCard = (ev) => {
     ev.preventDefault();
     props.getData(props.dataCard).then((info) => {
       props.setResultCard(info);
       console.log(info);
     });
-  };
+  };*/
 
-  const handleInput = (ev) => {
+  /*const handleInput = (ev) => {
     const inputValue = ev.currentTarget.value;
     const inputName = ev.currentTarget.name;
     props.handleInput(inputName, inputValue);
-  };
+  };*/
 
   return (
     <main className="main">
@@ -29,10 +29,7 @@ function Card(props) {
           updateAvatar={props.updateAvatar}
           handleInput={props.handleInput}
         />
-        <Share
-          resultCard={props.resultCard}
-          handleCreateCard={handleCreateCard} //mirar si da error
-        />
+        <Share resultCard={props.resultCard} handleShare={props.handleShare} />
       </form>
     </main>
   );

@@ -26,8 +26,10 @@ function App() {
       photo: "",
     })
   );
-  //Avatar
+
   const [resultCard, setResultCard] = useState({});
+
+  //Avatar
   const updateAvatar = (avatar) => {
     console.log(avatar);
     setDataCard({ ...dataCard, photo: avatar });
@@ -42,6 +44,17 @@ function App() {
   useEffect(() => {
     localStorage.set("userData", dataCard);
   }, [dataCard]);
+
+  //fetch
+  /*useEffect(() => {
+    getData().then((dataFromApi) => {
+      setResultCard(dataFromApi);
+    });
+  }, []);*/
+
+  const handleShare = (dataFromApi) => {
+    setResultCard(dataFromApi);
+  };
 
   return (
     <div>
@@ -69,6 +82,7 @@ function App() {
                 handleInput={handleInput}
                 resultCard={resultCard}
                 setDataCard={setDataCard}
+                handleShare={handleShare}
               />
 
               <Footer />

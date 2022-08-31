@@ -1,4 +1,4 @@
-function Twitter(props) {
+/*function Twitter(props) {
     return (<article className="fieldset-4__article js_twitter">
         <h2 className="js_error_msg fieldset-4___article--title">
             La tarjeta ha sido creada:
@@ -21,4 +21,4 @@ function Twitter(props) {
     </article>)
 }
 
-export default Twitter;
+export default Twitter;*/
