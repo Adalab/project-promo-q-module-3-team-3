@@ -4,10 +4,7 @@ import Fill from "./Fill";
 import Share from "./Share";
 import Twitter from "./Twitter";
 
-
 function Card(props) {
-
-
   const handleCreateCard = (ev) => {
     ev.preventDefault();
     props.getData(props.dataCard).then((info) => {
@@ -16,28 +13,28 @@ function Card(props) {
     });
   };
 
-
   const handleInput = (ev) => {
     const inputValue = ev.currentTarget.value;
     const inputName = ev.currentTarget.name;
     props.handleInput(inputName, inputValue);
   };
 
-
   return (
     <main className="main">
-
       <CardPreview setDataCard={props.setDataCard} dataCard={props.dataCard} />
       <form className="form js_all_inputs" action="">
-        <Design handleInput={handleInput} dataCard={props.dataCard} />
-        <Fill dataCard={props.dataCard} updateAvatar={props.updateAvatar} handleInput={handleInput} />
-        <Share resultCard={props.resultCard} handleCreateCard={handleCreateCard} />
+        <Design handleInput={props.handleInput} dataCard={props.dataCard} />
+        <Fill
+          dataCard={props.dataCard}
+          updateAvatar={props.updateAvatar}
+          handleInput={props.handleInput}
+        />
+        <Share
+          resultCard={props.resultCard}
+          handleCreateCard={handleCreateCard} //mirar si da error
+        />
       </form>
-
     </main>
-
-
-
   );
 }
 

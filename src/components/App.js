@@ -34,9 +34,7 @@ function App() {
   };
   //Manejadoras
 
-  const handleInput = (data) => {
-    const inputValue = data.value;
-    const inputName = data.name;
+  const handleInput = (inputValue, inputName) => {
     setDataCard({ ...dataCard, [inputName]: inputValue });
   };
 
@@ -45,25 +43,40 @@ function App() {
     localStorage.set("userData", dataCard);
   }, [dataCard]);
 
-
   return (
     <div>
       <Routes>
-        <Route path="/" element={<><Header /><Landing /><Footer /></>}></Route>
-        <Route path="/card" element={
-          <><Header />
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <Landing />
+              <Footer />
+            </>
+          }
+        ></Route>
+        <Route
+          path="/card"
+          element={
+            <>
+              <Header />
 
-            <Card updateAvatar={updateAvatar} dataCard={dataCard} handleCreateCard={setResultCard} handleInput={handleInput}
-              resultCard={resultCard} setDataCard={setDataCard}
-            />
+              <Card
+                updateAvatar={updateAvatar}
+                dataCard={dataCard}
+                handleCreateCard={setResultCard}
+                handleInput={handleInput}
+                resultCard={resultCard}
+                setDataCard={setDataCard}
+              />
 
-            <Footer />
-          </>
-        } ></Route>
-
-      </Routes >
-    </div >
-
+              <Footer />
+            </>
+          }
+        ></Route>
+      </Routes>
+    </div>
   );
 }
 
