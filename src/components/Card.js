@@ -23,13 +23,16 @@ function Card(props) {
     <main className="main">
       <CardPreview setDataCard={props.setDataCard} dataCard={props.dataCard} />
       <form className="form js_all_inputs" action="">
-        <Design handleInput={props.handleInput} dataCard={props.dataCard} />
+        <Design handleInput={props.handleInput} dataCard={props.dataCard} openDesign={props.openDesign} setOpenDesign={props.setOpenDesign} collapsable={props.collapsable} />
         <Fill
           dataCard={props.dataCard}
           updateAvatar={props.updateAvatar}
           handleInput={props.handleInput}
+          openFill={props.openFill} setOpenFill={props.setOpenFill}
+          collapsable={props.collapsable}
         />
-        <Share resultCard={props.resultCard} handleShare={props.handleShare} />
+        <Share resultCard={props.resultCard} handleShare={props.handleShare} openShare={props.openShare} setOpenShare={props.setOpenShare}
+          collapsable={props.collapsable} />
       </form>
     </main>
   );

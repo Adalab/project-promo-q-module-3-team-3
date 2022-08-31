@@ -28,6 +28,9 @@ function App() {
   );
 
   const [resultCard, setResultCard] = useState({});
+  const [openDesign, setOpenDesign] = useState(true);
+  const [openFill, setOpenFill] = useState(false);
+  const [openShare, setOpenShare] = useState(false);
 
   //Avatar
   const updateAvatar = (avatar) => {
@@ -38,6 +41,21 @@ function App() {
 
   const handleInput = (inputValue, inputName) => {
     setDataCard({ ...dataCard, [inputName]: inputValue });
+  };
+
+  const collapsable = () => {
+    if (openDesign === true && (openFill === true || openShare === true)) {
+      setOpenFill(false)
+      setOpenShare(false)
+    }
+    else if (openFill === true && (openDesign === true || openShare === true)) {
+      setOpenDesign(false)
+      setOpenShare(false)
+    }
+    else if (openShare === true && (openFill === true || openDesign === true)) {
+      setOpenDesign(false)
+      setOpenFill(false)
+    }
   };
 
   // localStorage
@@ -83,6 +101,10 @@ function App() {
                 resultCard={resultCard}
                 setDataCard={setDataCard}
                 handleShare={handleShare}
+                openDesign={openDesign} setOpenDesign={setOpenDesign}
+                openFill={openFill} setOpenFill={setOpenFill}
+                openShare={openShare} setOpenShare={setOpenShare}
+                collapsable={collapsable}
               />
 
               <Footer />
