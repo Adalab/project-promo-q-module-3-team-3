@@ -5,20 +5,18 @@ import getData from "../services/fetch.js";
 function Share(props) {
 
 
-  const toggle = () => {
-    props.setOpenShare(!props.openShare);
-    props.collapsable();
+  const handleClick = () => {
+    props.handleShareCol()
   }
+
   const handleCreateCard = (ev) => {
     ev.preventDefault();
-    getData(props.dataCard).then((dataFromApi) => {
-      props.handleShare(dataFromApi);
-      console.log(dataFromApi);
-    });
+    props.handleShare();
+
   };
   return (
     <fieldset className="fieldset-3">
-      <legend className="js_title_share fieldset-3__legend" onClick={toggle}>
+      <legend className="js_title_share fieldset-3__legend" onClick={handleClick}>
         <i className="fa-solid fa-share-nodes"></i>
         <h2 className="fieldset-3__legend--title">comparte</h2>
         <i className="js_arrow_share fa-solid fa-rocket fieldset__2--iconArrow"></i>

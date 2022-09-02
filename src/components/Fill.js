@@ -4,9 +4,12 @@ import Profile from "./Profile";
 
 function Fill(props) {
 
-  const toggle = () => {
+  /* const toggle = () => {
     props.setOpenFill(!props.openFill);
     props.collapsable();
+  } */
+  const handleClick = () => {
+    props.handleFillCol()
   }
   const handleChange = (ev) => {
     const inputValue = ev.target.value;
@@ -16,7 +19,7 @@ function Fill(props) {
 
   return (
     <fieldset className="fieldset__2">
-      <legend className="js_title_fill fieldset__2--legend" onClick={toggle}>
+      <legend className="js_title_fill fieldset__2--legend" onClick={handleClick}>
         <i className="fa-solid fa-keyboard fieldset__2--iconKeyboard"></i>
         <h2 className="fieldset__2--title">Rellena</h2>
         <i className="js_arrow_fill fa-solid fa-rocket fieldset__2--iconArrow"></i>

@@ -2,9 +2,12 @@ import "../styles/layout/Design.scss";
 
 function Design(props) {
   console.log(props);
-  const toggle = () => {
+  /* const toggle = () => {
     props.setOpenDesign(!props.openDesign);
     props.collapsable();
+  } */
+  const handleClick = () => {
+    props.handleDesingCol()
   }
 
   const handleChange = (ev) => {
@@ -15,7 +18,7 @@ function Design(props) {
 
   return (
     <fieldset className="fieldset__1">
-      <legend className="js_title_design fieldset__1--legend" onClick={toggle}>
+      <legend className="js_title_design fieldset__1--legend" onClick={handleClick}>
         <i className="fa-solid fa-vector-square fieldset__1--iconSquare"></i>
         <h2 className="fieldset__1--title">Diseña</h2>
         <i className="js_arrow_design fa-solid fa-rocket fieldset__1--iconArrow arrow-down"></i>

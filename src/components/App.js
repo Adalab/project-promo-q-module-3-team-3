@@ -43,20 +43,24 @@ function App() {
     setDataCard({ ...dataCard, [inputName]: inputValue });
   };
 
-  const collapsable = () => {
-    if (openDesign === true && (openFill === true || openShare === true)) {
-      setOpenFill(false)
-      setOpenShare(false)
-    }
-    else if (openFill === true && (openDesign === true || openShare === true)) {
-      setOpenDesign(false)
-      setOpenShare(false)
-    }
-    else if (openShare === true && (openFill === true || openDesign === true)) {
-      setOpenDesign(false)
-      setOpenFill(false)
-    }
+
+  // collapsable
+  const handleDesingCol = () => {
+    setOpenDesign(!openDesign)
+    setOpenFill(false)
+    setOpenShare(false)
   };
+  const handleFillCol = () => {
+    setOpenDesign(false)
+    setOpenFill(!openFill)
+    setOpenShare(false)
+  };
+  const handleShareCol = () => {
+    setOpenDesign(false)
+    setOpenFill(false)
+    setOpenShare(!openShare)
+  };
+
 
   // localStorage
   useEffect(() => {
@@ -71,7 +75,9 @@ function App() {
   }, []);*/
 
   const handleShare = (dataFromApi) => {
-    setResultCard(dataFromApi);
+    getData(dataCard).then((dataFromApi) => {
+      setResultCard(dataFromApi);
+    })
   };
 
   return (
@@ -104,7 +110,9 @@ function App() {
                 openDesign={openDesign} setOpenDesign={setOpenDesign}
                 openFill={openFill} setOpenFill={setOpenFill}
                 openShare={openShare} setOpenShare={setOpenShare}
-                collapsable={collapsable}
+                handleDesingCol={handleDesingCol}
+                handleFillCol={handleFillCol}
+                handleShareCol={handleShareCol}
               />
 
               <Footer />
